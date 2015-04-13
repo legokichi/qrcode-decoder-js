@@ -15,7 +15,7 @@
 */
 
 
-qrcode = window.qrcode || {};
+qrcode = self.qrcode || {};
 qrcode.imagedata = null;
 qrcode.width = 0;
 qrcode.height = 0;
@@ -80,6 +80,11 @@ qrcode.decode = function(src){
             {
                 console.log(e);
                 qrcode.result = "error decoding QR Code";
+            }
+            finally
+            {
+              delete qrcode.imagedata; // delete bitmap data
+              context.clearRect(0, 0, canvas_qr.width, canvas_qr.height); // clear canvas
             }
             if(qrcode.callback!=null)
                 qrcode.callback(qrcode.result);
